@@ -1,0 +1,295 @@
+<div class="page">
+    <div class="container">
+        <div class="converter" style="text-align:center">
+            <h1>JavaScript Converter</h1>
+
+            <select id="mainType"></select>
+            <br><br>
+            <input id="from">
+            <select id="fromType"></select>
+            <p style="margin:2px">=</p>
+            <input id="to">
+            <select id="toType"></select>
+        </div>
+    </div>
+    <script>
+        if (window.converter === undefined)
+        {
+            class converter
+            {
+                constructor(){
+                    this.n = 0;
+                    this.convertValues = {};
+                    this.lang = 'en';
+                    this.language = {};
+
+                    this.language['en'] = {}
+                    this.language['ru'] = {}
+
+                    this.convertValues['Length'] = {};
+                    this.convertValues['Mass'] = {};
+                    this.convertValues['Temperature'] = {};
+
+                    this.language['en']['Length'] = 'Length';
+                    this.language['en']['Foot'] = 'Foot';
+                    this.language['en']['Meter'] = 'Meter';
+                    this.language['en']['Inch'] = 'Inch';
+                    this.language['en']['Centimeter'] = 'Centimeter';
+                    this.language['en']['Yard'] = 'Yard';
+                    this.language['en']['Kilometer'] = 'Kilometer';
+                    this.language['en']['Mile'] = 'Mile';
+
+                    this.language['en']['Mass'] = 'Mass';
+                    this.language['en']['Pound'] = 'Pound';
+                    this.language['en']['Kilogram'] = 'Kilogram';
+                    this.language['en']['Ounce'] = 'Ounce';
+                    this.language['en']['Gram'] = 'Gram';
+                    this.language['en']['Stone'] = 'Stone';
+
+                    this.language['en']['Temperature'] = 'Temperature';
+                    this.language['en']['Kelvin'] = 'Kelvin';
+                    this.language['en']['Fahrenheit'] = 'Fahrenheit';
+                    this.language['en']['Celsius'] = 'Celsius';
+
+                    this.language['ru']['Length'] = 'Длина';
+                    this.language['ru']['Foot'] = 'Фут';
+                    this.language['ru']['Meter'] = 'Метр';
+                    this.language['ru']['Inch'] = 'Дюйм';
+                    this.language['ru']['Centimeter'] = 'Сантиметр';
+                    this.language['ru']['Yard'] = 'Ярд';
+                    this.language['ru']['Kilometer'] = 'Километр';
+                    this.language['ru']['Mile'] = 'Миля';
+
+                    this.language['ru']['Mass'] = 'Масса';
+                    this.language['ru']['Pound'] = 'Фунт';
+                    this.language['ru']['Kilogram'] = 'Килограмм';
+                    this.language['ru']['Ounce'] = 'Унция';
+                    this.language['ru']['Gram'] = 'Грамм';
+                    this.language['ru']['Stone'] = 'Стон';
+
+                    this.language['ru']['Temperature'] = 'Температура';
+                    this.language['ru']['Kelvin'] = 'Кельвин';
+                    this.language['ru']['Fahrenheit'] = 'Градус Фаренгейта';
+                    this.language['ru']['Celsius'] = 'Градус Цельсия';
+
+                    // Length //
+                    this.convertValues['Length']['Foot'] = {};
+                    this.convertValues['Length']['Meter'] = {};
+                    this.convertValues['Length']['Inch'] = {};
+                    this.convertValues['Length']['Centimeter'] = {};
+                    this.convertValues['Length']['Yard'] = {};
+                    this.convertValues['Length']['Kilometer'] = {};
+                    this.convertValues['Length']['Mile'] = {};
+                    // Foot
+                    this.convertValues['Length']['Foot']['Foot'] = 'converter.n*1';
+                    this.convertValues['Length']['Foot']['Meter'] = 'converter.n/3.2808';
+                    this.convertValues['Length']['Foot']['Inch'] = 'converter.n*12';
+                    this.convertValues['Length']['Foot']['Centimeter'] = 'converter.n/0.032808';
+                    this.convertValues['Length']['Foot']['Yard'] = 'converter.n*0.33333';
+                    this.convertValues['Length']['Foot']['Kilometer'] = 'converter.n/3280.8';
+                    this.convertValues['Length']['Foot']['Mile'] = 'converter.n*0.00018939';
+                    // Meter
+                    this.convertValues['Length']['Meter']['Meter'] = 'converter.n*1';
+                    this.convertValues['Length']['Meter']['Foot'] = 'converter.n*3.2808';
+                    this.convertValues['Length']['Meter']['Inch'] = 'converter.n*39.370';
+                    this.convertValues['Length']['Meter']['Centimeter'] = 'converter.n/0.01';
+                    this.convertValues['Length']['Meter']['Yard'] = 'converter.n*1.0936';
+                    this.convertValues['Length']['Meter']['Kilometer'] = 'converter.n/1000';
+                    this.convertValues['Length']['Meter']['Mile'] = 'converter.n*0.00062137';
+                    // Inch
+                    this.convertValues['Length']['Inch']['Inch'] = 'converter.n*1';
+                    this.convertValues['Length']['Inch']['Foot'] = 'converter.n*0.083333';
+                    this.convertValues['Length']['Inch']['Meter'] = 'converter.n/39.370';
+                    this.convertValues['Length']['Inch']['Centimeter'] = 'converter.n/0.39370';
+                    this.convertValues['Length']['Inch']['Yard'] = 'converter.n*0.027778';
+                    this.convertValues['Length']['Inch']['Kilometer'] = 'converter.n/39370';
+                    this.convertValues['Length']['Inch']['Mile'] = 'converter.n*0.000015783';
+                    // Centimeter
+                    this.convertValues['Length']['Centimeter']['Centimeter'] = 'converter.n*1';
+                    this.convertValues['Length']['Centimeter']['Foot'] = 'converter.n*0.032808';
+                    this.convertValues['Length']['Centimeter']['Meter'] = 'converter.n/100';
+                    this.convertValues['Length']['Centimeter']['Inch'] = 'converter.n*0.39370';
+                    this.convertValues['Length']['Centimeter']['Yard'] = 'converter.n*0.010936';
+                    this.convertValues['Length']['Centimeter']['Kilometer'] = 'converter.n/100000';
+                    this.convertValues['Length']['Centimeter']['Mile'] = 'converter.n*0.0000062137';
+                    // Yard
+                    this.convertValues['Length']['Yard']['Yard'] = 'converter.n*1';
+                    this.convertValues['Length']['Yard']['Foot'] = 'converter.n*3';
+                    this.convertValues['Length']['Yard']['Meter'] = 'converter.n/1.0936';
+                    this.convertValues['Length']['Yard']['Inch'] = 'converter.n*36';
+                    this.convertValues['Length']['Yard']['Centimeter'] = 'converter.n/0.010936';
+                    this.convertValues['Length']['Yard']['Kilometer'] = 'converter.n/1093.6';
+                    this.convertValues['Length']['Yard']['Mile'] = 'converter.n*0.00056818';
+                    // Kilometer
+                    this.convertValues['Length']['Kilometer']['Kilometer'] = 'converter.n*1';
+                    this.convertValues['Length']['Kilometer']['Foot'] = 'converter.n*3280.8';
+                    this.convertValues['Length']['Kilometer']['Meter'] = 'converter.n*1000';
+                    this.convertValues['Length']['Kilometer']['Inch'] = 'converter.n*39370';
+                    this.convertValues['Length']['Kilometer']['Centimeter'] = 'converter.n*100000';
+                    this.convertValues['Length']['Kilometer']['Yard'] = 'converter.n*1093.6';
+                    this.convertValues['Length']['Kilometer']['Mile'] = 'converter.n*0.62137';
+                    // Mile
+                    this.convertValues['Length']['Mile']['Mile'] = 'converter.n*1';
+                    this.convertValues['Length']['Mile']['Foot'] = 'converter.n*5280';
+                    this.convertValues['Length']['Mile']['Meter'] = 'converter.n/0.00062137';
+                    this.convertValues['Length']['Mile']['Inch'] = 'converter.n*63360';
+                    this.convertValues['Length']['Mile']['Centimeter'] = 'converter.n/0.0000062137';
+                    this.convertValues['Length']['Mile']['Yard'] = 'converter.n*1760';
+                    this.convertValues['Length']['Mile']['Kilometer'] = 'converter.n/0.62137';
+                    // Length //
+
+                    // Mass //
+                    this.convertValues['Mass']['Pound'] = {};
+                    this.convertValues['Mass']['Kilogram'] = {};
+                    this.convertValues['Mass']['Ounce'] = {};
+                    this.convertValues['Mass']['Gram'] = {};
+                    this.convertValues['Mass']['Stone'] = {};
+                    //Pound
+                    this.convertValues['Mass']['Pound']['Pound'] = 'converter.n*1';
+                    this.convertValues['Mass']['Pound']['Kilogram'] = 'converter.n/2.2046';
+                    this.convertValues['Mass']['Pound']['Ounce'] = 'converter.n*16';
+                    this.convertValues['Mass']['Pound']['Gram'] = 'converter.n/0.0022046';
+                    this.convertValues['Mass']['Pound']['Stone'] = 'converter.n*0.071429';
+                    //Kilogram
+                    this.convertValues['Mass']['Kilogram']['Kilogram'] = 'converter.n*1';
+                    this.convertValues['Mass']['Kilogram']['Pound'] = 'converter.n*2.2046';
+                    this.convertValues['Mass']['Kilogram']['Ounce'] = 'converter.n*35.274';
+                    this.convertValues['Mass']['Kilogram']['Gram'] = 'converter.n*1000';
+                    this.convertValues['Mass']['Kilogram']['Stone'] = 'converter.n*0.1574';
+                    //Ounce
+                    this.convertValues['Mass']['Ounce']['Ounce'] = 'converter.n*1';
+                    this.convertValues['Mass']['Ounce']['Pound'] = 'converter.n*0.0625';
+                    this.convertValues['Mass']['Ounce']['Kilogram'] = 'converter.n/35.274';
+                    this.convertValues['Mass']['Ounce']['Gram'] = 'converter.n/0.035274';
+                    this.convertValues['Mass']['Ounce']['Stone'] = 'converter.n*0.0044643';
+                    //Gram
+                    this.convertValues['Mass']['Gram']['Gram'] = 'converter.n*1';
+                    this.convertValues['Mass']['Gram']['Pound'] = 'converter.n*0.0022046';
+                    this.convertValues['Mass']['Gram']['Kilogram'] = 'converter.n/1000';
+                    this.convertValues['Mass']['Gram']['Ounce'] = 'converter.n*0.035274';
+                    this.convertValues['Mass']['Gram']['Stone'] = 'converter.n*0.00015747';
+                    //Stone
+                    this.convertValues['Mass']['Stone']['Stone'] = 'converter.n*1';
+                    this.convertValues['Mass']['Stone']['Pound'] = 'converter.n*14';
+                    this.convertValues['Mass']['Stone']['Kilogram'] = 'converter.n/0.15747';
+                    this.convertValues['Mass']['Stone']['Ounce'] = 'converter.n*224';
+                    this.convertValues['Mass']['Stone']['Gram'] = 'converter.n/0.00015747';
+                    // Mass //
+
+                    // Temperature //
+                    this.convertValues['Temperature']['Fahrenheit'] = {};
+                    this.convertValues['Temperature']['Celsius'] = {};
+                    this.convertValues['Temperature']['Kelvin'] = {};
+                    //Fahrenheit
+                    this.convertValues['Temperature']['Fahrenheit']['Fahrenheit'] = 'converter.n*1';
+                    this.convertValues['Temperature']['Fahrenheit']['Celsius'] = '(converter.n-32)/1.8';
+                    this.convertValues['Temperature']['Fahrenheit']['Kelvin'] = '((converter.n-32)/1.8)+273.15';
+                    //Celsius
+                    this.convertValues['Temperature']['Celsius']['Celsius'] = 'converter.n*1';
+                    this.convertValues['Temperature']['Celsius']['Fahrenheit'] = '(converter.n*1.8)+32';
+                    this.convertValues['Temperature']['Celsius']['Kelvin'] = 'converter.n+273.15';
+                    //Kelvin
+                    this.convertValues['Temperature']['Kelvin']['Kelvin'] = 'converter.n*1';
+                    this.convertValues['Temperature']['Kelvin']['Fahrenheit'] = '((converter.n-273.15)*1.8)+32';
+                    this.convertValues['Temperature']['Kelvin']['Celsius'] = 'converter.n-273.15';
+                    // Temperature //
+                }
+
+                init()
+                {
+                    for (var v in this.convertValues)
+                    {
+                        this.mainType.innerHTML += '<option value="'+v+'">'+this.language[this.lang][v]+'</option>';
+                    }
+
+                    this.mainType.value = 'Length';
+
+                    this.generateSelect();
+
+                    this.from.value = 1;
+                    this.fromType.value = 'Kilometer';
+                    this.toType.value = 'Meter';
+
+                    this.convert('from');
+                }
+
+                generateSelect()
+                {
+                    this.fromType.innerHTML = '';
+                    this.toType.innerHTML = '';
+
+                    for (var v in this.convertValues[this.mainType.value])
+                    {
+                        this.fromType.innerHTML = this.toType.innerHTML += '<option value="'+v+'">'+this.language[this.lang][v]+'</option>';
+                    }
+                }
+
+                convert(type)
+                {
+                    var mt = this.mainType.value;
+                    var f = this.from.value;
+                    var t = this.to.value;
+                    var fT = this.fromType.value;
+                    var tT = this.toType.value;
+
+                    if (type == 'from')
+                    {
+                        if (!t)
+                        {
+                            this.n = 0;
+                        } else
+                        {
+                            this.n = f;
+                        }
+
+                        let fu = Function('"use strict"; return ' + this.convertValues[mt][fT][tT]);
+                        var result = fu();
+                        fu();
+                        this.to.value = result;
+                    }
+                    if (type == 'to')
+                    {
+                        if (!t)
+                        {
+                            this.n = 0;
+                        } else
+                        {
+                            this.n = t;
+                        }
+
+                        let fu = Function('"use strict"; return ' + this.convertValues[mt][tT][fT]);
+                        var result = fu();
+                        this.from.value = result;
+                    }
+                }
+            }
+            window.converter = new converter();
+        }
+
+        converter.mainType = document.getElementById('mainType');
+        converter.from = document.getElementById('from');
+        converter.to = document.getElementById('to');
+        converter.fromType = document.getElementById('fromType');
+        converter.toType = document.getElementById('toType');
+        converter.lang = 'en';
+
+        converter.init();
+        converter.convert('from');
+
+        converter.from.addEventListener("input", function(){
+            converter.convert('from');
+        });
+        converter.to.addEventListener("input", function(){
+            converter.convert('to');
+        });
+        converter.fromType.addEventListener("input", function(){
+            converter.convert('to');
+        });
+        converter.toType.addEventListener("input", function(){
+            converter.convert('from');
+        });
+        converter.mainType.addEventListener("input", function(){
+            converter.generateSelect();
+        });
+    </script>
+</div>
